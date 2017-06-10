@@ -1,4 +1,4 @@
-package com.marine.backend.domain;
+package com.marine.backend.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 @EntityScan(
         basePackageClasses = {Jsr310JpaConverters.class},  
-        basePackages = {"com.marine.backend.model"}) 
+        basePackages = {"com.marine.backend.entity"}) 
 @SpringBootApplication
 public class BackendApplication {
 

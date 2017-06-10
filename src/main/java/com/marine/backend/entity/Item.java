@@ -1,4 +1,4 @@
-package com.marine.backend.domain;
+package com.marine.backend.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
-public class Room extends BaseEntity {
+public class Item extends BaseEntity {
 
 	private static final long serialVersionUID = 2246955375382844807L;
 
@@ -18,14 +18,14 @@ public class Room extends BaseEntity {
     private Integer id;
 	
 	private String name;
-	private Double lat;
-	private Double lng;
+	private Float lat;
+	private Float lng;
 	private Integer rent;
 	private Integer deposit;
 	private String description;
 	
-	@ManyToOne(optional=false)
-	@JoinColumn(name="type_id")
+	 @ManyToOne
+    @JoinColumn(name = "type_id")
 	private Type type;
 
 	public Integer getId() {
@@ -44,19 +44,19 @@ public class Room extends BaseEntity {
 		this.name = name;
 	}
 
-	public Double getLat() {
+	public Float getLat() {
 		return lat;
 	}
 
-	public void setLat(Double lat) {
+	public void setLat(Float lat) {
 		this.lat = lat;
 	}
 
-	public Double getLng() {
+	public Float getLng() {
 		return lng;
 	}
 
-	public void setLng(Double lng) {
+	public void setLng(Float lng) {
 		this.lng = lng;
 	}
 
@@ -84,6 +84,7 @@ public class Room extends BaseEntity {
 		this.description = description;
 	}
 
+	
 	public Type getType() {
 		return type;
 	}

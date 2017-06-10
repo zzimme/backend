@@ -1,13 +1,14 @@
-package com.marine.backend.domain;
+package com.marine.backend.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Type extends BaseEntity {
@@ -16,17 +17,14 @@ public class Type extends BaseEntity {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	private String name;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="type")
-	private List<Room> rooms;
-
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -38,13 +36,7 @@ public class Type extends BaseEntity {
 		this.name = name;
 	}
 
-	public List<Room> getRooms() {
-		return rooms;
-	}
-
-	public void setRooms(List<Room> rooms) {
-		this.rooms = rooms;
-	}
+	//
 	
 	
 }
