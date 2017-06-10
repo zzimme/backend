@@ -1,20 +1,17 @@
-package com.marine.backend.model;
+package com.marine.backend.domain;
 
-import java.sql.Date;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import lombok.Data;
 
 @Entity
-public class Room {
+public class Room extends BaseEntity {
+
+	private static final long serialVersionUID = 2246955375382844807L;
 
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -26,10 +23,9 @@ public class Room {
 	private Integer rent;
 	private Integer deposit;
 	private String description;
-	private Date registerDate;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "type_id")
+	@ManyToOne(optional=false)
+	@JoinColumn(name="type_id")
 	private Type type;
 
 	public Integer getId() {
@@ -86,14 +82,6 @@ public class Room {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Date getRegisterDate() {
-		return registerDate;
-	}
-
-	public void setRegisterDate(Date registerDate) {
-		this.registerDate = registerDate;
 	}
 
 	public Type getType() {

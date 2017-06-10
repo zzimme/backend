@@ -1,19 +1,20 @@
 package com.marine.backend;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.marine.backend.model.Room;
-import com.marine.backend.model.Type;
+import com.marine.backend.domain.Room;
+import com.marine.backend.domain.Type;
+import com.marine.backend.repository.RoomRepository;
+import com.marine.backend.repository.TypeRepository;
 
 public class RoomTest extends BackendApplicationTests{
 	
 	@Autowired
-    private EntityManagerFactory entityManagerFactory;
-    private EntityManager entityManager;
+    private RoomRepository roomRepo;
+	
+	@Autowired
+	private TypeRepository typeRepo;
 	
 	@Test
 	public void storeRoomTest(){
@@ -23,10 +24,17 @@ public class RoomTest extends BackendApplicationTests{
 		room.setName("지하철역 주변 유일한 저렴한 도시형주택!");
 		room.setLat(37.588792);
 		room.setLng(126.944094);
+		room.setRent(0);
+		room.setDeposit(20000);
+		room.setDescription("지하철역 주변 유일한 저렴한 도시형주택");
 		
-		/*Type type = new Type();
-		type.setName("오피스텔");*/
 		
+		Type type = typeRepo.findOne(1);
+		System.out.println("type:"+type.getName());
+		room.setType(type);
+		
+		roomRepo.save(room);
+	
 	}
 	
 }

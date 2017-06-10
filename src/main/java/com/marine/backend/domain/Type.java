@@ -1,6 +1,5 @@
-package com.marine.backend.model;
+package com.marine.backend.domain;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,18 +9,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import lombok.Data;
-
 @Entity
-public class Type {
+public class Type extends BaseEntity {
 
+	private static final long serialVersionUID = 192791852941212056L;
+	
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String name;
-	private Date registerDate;
 	
-	@OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="type")
 	private List<Room> rooms;
 
 	public int getId() {
@@ -38,14 +36,6 @@ public class Type {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Date getRegisterDate() {
-		return registerDate;
-	}
-
-	public void setRegisterDate(Date registerDate) {
-		this.registerDate = registerDate;
 	}
 
 	public List<Room> getRooms() {
