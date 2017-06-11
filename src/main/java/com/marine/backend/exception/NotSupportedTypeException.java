@@ -4,9 +4,7 @@ import org.springframework.http.HttpStatus;
 
 public class NotSupportedTypeException extends Exception{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 5400101673477452769L;
 	
 

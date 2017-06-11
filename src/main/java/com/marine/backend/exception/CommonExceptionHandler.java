@@ -1,4 +1,4 @@
-package com.marine.backend;
+package com.marine.backend.exception;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,10 +10,11 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@Override
@@ -57,9 +58,10 @@ public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
 		map.put("message", ex.getMessage());
 		map.put("status", status);
 
-		return new ResponseEntity<Object>(map, headers, status);
+		return new ResponseEntity<Object>(map, new HttpHeaders(), status);
 
 	}
+	
 	
 	
 
