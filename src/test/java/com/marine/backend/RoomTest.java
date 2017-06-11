@@ -22,8 +22,8 @@ public class RoomTest extends BackendApplicationTests{
 		Item room = new Item();
 		
 		room.setName("지하철역 주변 유일한 저렴한 도시형주택!");
-		room.setLat(37.588792f);
-		room.setLng(126.944094f);
+		room.setLat(37.588792);
+		room.setLng(126.944094);
 		room.setRent(0);
 		room.setDeposit(20000);
 		room.setDescription("지하철역 주변 유일한 저렴한 도시형주택");

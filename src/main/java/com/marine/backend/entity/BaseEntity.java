@@ -15,6 +15,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public abstract class BaseEntity implements Serializable{
 
 	@CreatedDate
-    @Column(name = "register_date", updatable = false)
+    @Column(name = "register_date", nullable=false, columnDefinition="DATETIME default CURRENT_TIMESTAMP", updatable = false)
 	private LocalDateTime registerDate;
 }

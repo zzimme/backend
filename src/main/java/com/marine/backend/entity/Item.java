@@ -1,5 +1,6 @@
 package com.marine.backend.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,21 +12,30 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Item extends BaseEntity {
 
+	
 	private static final long serialVersionUID = 2246955375382844807L;
 
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 	
+	@Column(nullable=false)
 	private String name;
-	private Float lat;
-	private Float lng;
+	
+
+	private Double lat;
+
+	private Double lng;
+	
+	@Column(nullable=false , columnDefinition="int default 0")
 	private Integer rent;
+	@Column(nullable=false , columnDefinition="int default 0")
 	private Integer deposit;
+	
 	private String description;
 	
-	 @ManyToOne
-    @JoinColumn(name = "type_id")
+	@ManyToOne
+    @JoinColumn(name = "type_id", nullable = false)
 	private Type type;
 
 	public Integer getId() {
@@ -44,19 +54,19 @@ public class Item extends BaseEntity {
 		this.name = name;
 	}
 
-	public Float getLat() {
+	public Double getLat() {
 		return lat;
 	}
 
-	public void setLat(Float lat) {
+	public void setLat(Double lat) {
 		this.lat = lat;
 	}
 
-	public Float getLng() {
+	public Double getLng() {
 		return lng;
 	}
 
-	public void setLng(Float lng) {
+	public void setLng(Double lng) {
 		this.lng = lng;
 	}
 

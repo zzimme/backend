@@ -1,25 +1,23 @@
 package com.marine.backend.entity;
 
-import java.util.List;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Type extends BaseEntity {
 
 	private static final long serialVersionUID = 192791852941212056L;
-	
+
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	private String name;
 	
+	@Column(nullable=false)
+	private String name;
+
 	public Integer getId() {
 		return id;
 	}
@@ -36,7 +34,4 @@ public class Type extends BaseEntity {
 		this.name = name;
 	}
 
-	//
-	
-	
 }

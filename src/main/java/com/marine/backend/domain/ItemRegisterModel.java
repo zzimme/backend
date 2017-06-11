@@ -8,9 +8,9 @@ public class ItemRegisterModel {
 		@NotNull
 		private String name;
 		@NotNull
-		private Float lat;
+		private Double lat;
 		@NotNull
-		private Float lng;
+		private Double lng;
 		@NotNull
 		private Integer rent;
 		@NotNull
@@ -36,19 +36,19 @@ public class ItemRegisterModel {
 			this.name = name;
 		}
 
-		public Float getLat() {
+		public Double getLat() {
 			return lat;
 		}
 
-		public void setLat(Float lat) {
+		public void setLat(Double lat) {
 			this.lat = lat;
 		}
 
-		public Float getLng() {
+		public Double getLng() {
 			return lng;
 		}
 
-		public void setLng(Float lng) {
+		public void setLng(Double lng) {
 			this.lng = lng;
 		}
 
