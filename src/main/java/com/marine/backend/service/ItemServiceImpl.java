@@ -1,5 +1,6 @@
 package com.marine.backend.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.marine.backend.Specification.ItemSpecification;
 import com.marine.backend.domain.ItemRegisterModel;
+import com.marine.backend.domain.ItemResponseModel;
 import com.marine.backend.entity.Item;
 import com.marine.backend.entity.Type;
 import com.marine.backend.exception.AlreadyExistItemException;
@@ -35,7 +38,7 @@ public class ItemServiceImpl implements ItemService {
 	private TypeRepository typeRepository;
 
 	@Override
-	public Map<String, Object> createRoom(ItemRegisterModel item)
+	public Map<String, Object> createItem(ItemRegisterModel item)
 			throws AlreadyExistItemException, NotSupportedTypeException, CommonApiException {
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -46,7 +49,7 @@ public class ItemServiceImpl implements ItemService {
 		if (type == null) {
 			throw new NotSupportedTypeException("NotSupportedType", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		logger.info("---------------111>> lat:{}",item.getLat());
+		
 		try {
 			entity.setName(item.getName());
 			entity.setLat(item.getLat());
@@ -69,8 +72,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public Map<String, Object> modifyItem(ItemRegisterModel item)
 			throws NotExistItemException, NotSupportedTypeException, CommonApiException {
-		// TODO Auto-generated method stub
-
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		Item entity = itemRepository.findOne(item.getId());
@@ -107,19 +109,28 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public Item getItem(Integer id) throws NotExistItemException {
+	public ItemResponseModel getItem(Integer id) throws NotExistItemException {
 		Item entity = itemRepository.findOne(id);
 
 		if (entity == null) {
 			throw new NotExistItemException("NotExistRoom", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		logger.info("--------------->> lat:{}",entity.getLat());
-		return entity;
+		ItemResponseModel model = new ItemResponseModel();
+		model.setId(entity.getId());
+		model.setName(entity.getName());
+		model.setLat(entity.getLat());
+		model.setLng(entity.getLng());
+		model.setRent(entity.getRent());
+		model.setDeposit(entity.getDeposit());
+		model.setDescription(entity.getDescription());
+		model.setType(entity.getType().getName());
+		
+		return model;
 	}
 
 	@Override
-	public List<Item> getItemList(Double latSouth, Double latNorth, Double lngEast, Double lngWest, List<Integer> types,
+	public List<ItemResponseModel> getItemList(Double latSouth, Double latNorth, Double lngEast, Double lngWest, List<Integer> types,
 			Pageable pageable) {
 
 		Specifications<Item> specifications = Specifications.where(ItemSpecification.basic());
@@ -134,15 +145,30 @@ public class ItemServiceImpl implements ItemService {
 
 		if (!types.isEmpty()) {
 			List<Type> typeList = typeRepository.findByIdIn(types);
-			for (int i = 0; i < typeList.size(); i++) {
-				logger.info("type:{}", typeList.get(i).getName());
-			}
-			specifications = specifications.and(ItemSpecification.typeIn(typeList));
+			if(!typeList.isEmpty())
+				specifications = specifications.and(ItemSpecification.typeIn(typeList));
 		}
 
-		List<Item> list = itemRepository.findAll(specifications, pageable);
-
-		return list;
+		
+		PageImpl<Item> list = itemRepository.findAll(specifications, pageable);
+		
+		List<ItemResponseModel> result = new ArrayList<ItemResponseModel>();
+		
+		for (Item item : list.getContent()) {
+			
+			ItemResponseModel model = new ItemResponseModel();
+			model.setId(item.getId());
+			model.setName(item.getName());
+			model.setLat(item.getLat());
+			model.setLng(item.getLng());
+			model.setRent(item.getRent());
+			model.setDeposit(item.getDeposit());
+			model.setDescription(item.getDescription());
+			model.setType(item.getType().getName());
+			
+			result.add(model);
+		}
+		return result;
 	}
 
 }

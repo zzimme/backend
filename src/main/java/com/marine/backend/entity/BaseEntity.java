@@ -14,6 +14,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable{
 
+	private static final long serialVersionUID = -283429122719578794L;
+
 	@CreatedDate
     @Column(name = "register_date", nullable=false, columnDefinition="DATETIME default CURRENT_TIMESTAMP", updatable = false)
 	private LocalDateTime registerDate;

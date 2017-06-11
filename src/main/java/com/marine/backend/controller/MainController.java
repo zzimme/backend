@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.marine.backend.domain.ItemRegisterModel;
-import com.marine.backend.entity.Item;
+import com.marine.backend.domain.ItemResponseModel;
 import com.marine.backend.exception.AlreadyExistItemException;
 import com.marine.backend.exception.CommonApiException;
 import com.marine.backend.exception.NotExistItemException;
@@ -49,7 +49,7 @@ public class MainController {
 			HttpServletResponse response, 
 			@Validated @RequestBody ItemRegisterModel room) throws AlreadyExistItemException, NotSupportedTypeException, CommonApiException{
 		
-		Map<String,Object> map = itemService.createRoom(room);
+		Map<String,Object> map = itemService.createItem(room);
 		
 		return map;
 	}
@@ -92,8 +92,7 @@ public class MainController {
 			) throws NotExistItemException {
 		
 		
-		Item item = itemService.getItem(id);
-		
+		ItemResponseModel item = itemService.getItem(id);
 		
 		return item;
 	}
@@ -116,7 +115,7 @@ public class MainController {
 			Pageable pageable
 			) throws NotExistItemException {
 		
-		logger.info("types:{}",types.toString());
+		
 		return itemService.getItemList(latSouth, latNorth, lngEast, lngWest, types, pageable);
 		
 		
